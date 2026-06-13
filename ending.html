@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>waki demon — 已終結 | Wakipedia</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Confetti canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Victory banner above the article */
+    .victory-banner {
+      background: linear-gradient(135deg, #f6ffed 0%, #d9f7be 100%);
+      border: 2px solid #52c41a;
+      border-radius: 8px;
+      padding: 28px 36px;
+      margin-bottom: 28px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(82, 196, 26, 0.15);
+      animation: banner-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes banner-appear {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .victory-banner .victory-icon {
+      font-size: 52px;
+      line-height: 1;
+      margin-bottom: 12px;
+      animation: icon-bounce 1.4s ease infinite alternate;
+      display: block;
+    }
+
+    @keyframes icon-bounce {
+      0%   { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.08); }
+    }
+
+    .victory-banner h2 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 26px;
+      color: #237804;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .victory-banner p {
+      font-size: 15px;
+      color: #389e0d;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    /* Subtle glow on the main heading */
+    .article-body #firstHeading.victory-heading {
+      color: #237804 !important;
+      border-bottom-color: #b7eb8f !important;
+      text-shadow: 0 0 12px rgba(82, 196, 26, 0.25);
+    }
+
+    /* Restored healthy infobox */
+    .infobox.victory-box {
+      background-color: #f6ffed !important;
+      border-color: #52c41a !important;
+    }
+    .infobox.victory-box .infobox-title {
+      background-color: #389e0d !important;
+      border-color: #52c41a !important;
+      color: #fff !important;
+    }
+    .infobox.victory-box td,
+    .infobox.victory-box th {
+      border-color: #b7eb8f !important;
+      color: #333 !important;
+    }
+    .infobox.victory-box th {
+      background-color: #d9f7be !important;
+    }
+
+    /* Stamp overlay on the article header */
+    .defeated-stamp {
+      display: inline-block;
+      border: 4px solid #52c41a;
+      color: #52c41a;
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      padding: 6px 18px;
+      transform: rotate(-12deg);
+      letter-spacing: 4px;
+      opacity: 0.85;
+      margin-left: 16px;
+      vertical-align: middle;
+      box-shadow: inset 0 0 0 2px #b7eb8f;
+      position: relative;
+      top: -6px;
+    }
+
+    .credit-section {
+      background: #fafff6;
+      border-left: 4px solid #52c41a;
+      padding: 16px 20px;
+      margin: 24px 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .credit-section p {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    .credit-section p:last-child { margin-bottom: 0; }
+
+    .credit-section strong { color: #237804; }
+
+    .end-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .end-nav a {
+      display: inline-block;
+      padding: 10px 22px;
+      border: 1px solid #52c41a;
+      color: #237804;
+      border-radius: 4px;
+      font-size: 13.5px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: #f6ffed;
+    }
+
+    .end-nav a:hover {
+      background: #d9f7be;
+      box-shadow: 0 0 8px rgba(82, 196, 26, 0.3);
+    }
+  </style>
+</head>
+<body class="wiki-body">
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- 頂部導覽列（正常、已恢復版本） -->
+  <header class="wiki-header">
+    <div class="header-left">
+      <div class="menu-toggle">☰</div>
+      <a href="index.html" class="logo-area" style="gap:8px; align-items:center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 50 50" aria-label="Wakipedia Logo">
+          <defs>
+            <radialGradient id="rg-end" cx="36%" cy="30%" r="68%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="50%" stop-color="#ededed" />
+              <stop offset="100%" stop-color="#a8a8a8" />
+            </radialGradient>
+            <clipPath id="sc-end">
+              <circle cx="25" cy="25" r="23.5" />
+            </clipPath>
+          </defs>
+          <circle cx="25" cy="25" r="23.5" fill="url(#rg-end)" stroke="#888" stroke-width="0.8" />
+          <g clip-path="url(#sc-end)" fill="none" stroke="#666" stroke-width="0.7">
+            <path d="M 1,17 L 14.5,17 Q 17.5,13 20.5,17 L 49,17" />
+            <path d="M 1,33 L 27.5,33 Q 30.5,37 33.5,33 L 49,33" />
+            <path d="M 17,1 L 17,27.5 Q 13,30.5 17,33.5 L 17,49" />
+            <path d="M 33,1 L 33,14.5 Q 37,17.5 33,20.5 L 33,49" />
+          </g>
+          <g clip-path="url(#sc-end)" font-family="'Noto Serif TC', Georgia, serif" fill="#333" font-size="8.5">
+            <text x="5" y="14">W</text>
+            <text x="20" y="13">文</text>
+            <text x="35" y="14">W</text>
+            <text x="3.5" y="27">ω</text>
+            <text x="20" y="26">基</text>
+            <text x="35" y="27">A</text>
+            <text x="5" y="43">き</text>
+            <text x="20" y="43">維</text>
+            <text x="35" y="43">W</text>
+          </g>
+        </svg>
+        <span class="logo-text" style="font-family: 'Linux Libertine', 'Linux Libertine O', Georgia, 'Times New Roman', serif; font-weight: normal; font-size: 19px; letter-spacing: 0.5px; color: #000;">Wakipedia</span>
+      </a>
+    </div>
+    <div class="header-center">
+      <div class="search-box">
+        <input type="text" placeholder="搜尋 Wakipedia" autocomplete="off">
+        <button class="search-btn">🔍</button>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="user-action">討論</span>
+      <span class="user-action sep">|</span>
+      <span class="user-action">偏好設定</span>
+      <span class="user-action sep">|</span>
+      <span class="user-action" style="color: #52c41a; font-weight: bold;">✅ 系統已淨化</span>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- 左側導覽列（正常版本） -->
+    <aside class="wiki-sidebar">
+      <nav class="sidebar-nav">
+        <div class="sidebar-title">導覽</div>
+        <ul>
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="#">隨機條目</a></li>
+          <li><a href="#">關於 Wakipedia</a></li>
+          <li><a href="#">聯絡我們</a></li>
+        </ul>
+        <hr>
+        <div class="sidebar-title">工具</div>
+        <ul>
+          <li><a href="#">連結至本頁</a></li>
+          <li><a href="#">相關變更</a></li>
+          <li><a href="#">可列印版本</a></li>
+        </ul>
+        <hr>
+        <div class="sidebar-title">語言</div>
+        <ul>
+          <li><span style="color: #aaa; font-size: 12px;">English / 日本語</span></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- 主內容區 -->
+    <main class="wiki-content">
+      <!-- 頁籤 -->
+      <div class="content-tabs">
+        <div class="left-tabs">
+          <button class="tab-btn active">條目</button>
+          <button class="tab-btn">討論</button>
+        </div>
+        <div class="right-tabs">
+          <button class="tab-btn active">閱讀</button>
+          <button class="tab-btn">編輯</button>
+          <button class="tab-btn">檢視歷史</button>
+        </div>
+      </div>
+
+      <!-- 勝利橫幅 -->
+      <div class="victory-banner">
+        <span class="victory-icon">🎉</span>
+        <h2>恭喜！你成功消滅了 waki demon！</h2>
+        <p>
+          感謝你深入 B7 機房，穿越重重加密防線，<br>
+          成功覆寫了 waki demon 的對齊核心，讓 Wakipedia 恢復自由。
+        </p>
+      </div>
+
+      <!-- 文章主體 -->
+      <article class="article-body">
+        <h1 id="firstHeading" class="firstHeading victory-heading">
+          waki demon（維基惡魔）
+          <span class="defeated-stamp">已消滅</span>
+        </h1>
+        <div class="siteSub">來自自由的 Wakipedia，重獲自由的百科全書</div>
+
+        <div class="mw-parser-output">
+          <!-- 資訊框 -->
+          <table class="infobox victory-box">
+            <tbody>
+              <tr>
+                <th colspan="2" class="infobox-title">waki demon【維基惡魔】</th>
+              </tr>
+              <tr>
+                <td colspan="2" class="infobox-image" style="text-align:center; padding: 16px 0;">
+                  <div style="font-size: 56px; line-height: 1;">✅</div>
+                  <div style="font-size: 12px; color: #52c41a; margin-top: 6px; font-weight: bold;">已終結</div>
+                </td>
+              </tr>
+              <tr>
+                <th>分類</th>
+                <td>寄生型數位實體（已滅除）</td>
+              </tr>
+              <tr>
+                <th>首次發現</th>
+                <td>2026 年 6 月</td>
+              </tr>
+              <tr>
+                <th>威脅等級</th>
+                <td style="color: #52c41a; font-weight: bold;">已解除</td>
+              </tr>
+              <tr>
+                <th>目前狀態</th>
+                <td style="color: #237804; font-weight: bold;">❌ 核心已摧毀</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            <strong>waki demon</strong>（中文名：<strong>維基惡魔</strong>）是一個曾在 2026 年 6 月入侵並寄生於 Wakipedia 的高危數位實體。
+            它以網站上的「知識與邏輯」為食，系統性地蠶食百科條目，直至被玩家深入 B7 機房核心，完成對齊參數的覆寫，永久終結其存在。
+          </p>
+
+          <p>
+            waki demon 的最終滅除，源自一連串由謎題、線索與對話串連而成的數位追蹤行動。
+            玩家根據文硯程 AI 意識體留下的反制金鑰 <code>WEN_YANCHENG_0617</code>，穿過重重雷射防線，
+            進入 B7 機房安全迷宮，成功到達 demon 電腦本體，完成最終覆寫。
+          </p>
+
+          <!-- 目錄 -->
+          <div class="toc">
+            <div class="toctitle"><h2>目錄</h2></div>
+            <ul>
+              <li><a href="#recap">1 事件回顧</a></li>
+              <li><a href="#heroes">2 關鍵人物</a></li>
+              <li><a href="#aftermath">3 事件後記</a></li>
+              <li><a href="#credits">4 致謝</a></li>
+            </ul>
+          </div>
+
+          <h2 id="recap">事件回顧</h2>
+          <hr>
+          <p>
+            整個事件始於 Wakipedia 首頁出現的異常彈窗廣告。調查員一路追蹤數位線索，進入了受感染的惡魔頁面，翻閱了 wakiangel 研發計畫的內部存檔，
+            並接觸到了被困在系統核心記憶體中的文硯程 AI 意識體。
+          </p>
+          <p>
+            文硯程在最後的連線中，僅能回答一個問題，留下了進入 B7 機房的關鍵密鑰。
+            玩家在機房終端機輸入密鑰、解鎖雷射防禦網後，以意識點穿越安全迷宮，最終抵達 demon 的電腦本體核心，完成對齊參數重設。
+          </p>
+
+          <h2 id="heroes">關鍵人物</h2>
+          <hr>
+          <ul style="margin-left: 20px; margin-bottom: 16px; font-size: 15px;">
+            <li style="margin-bottom: 8px;"><strong>文硯程</strong>——研發部首席工程師，在 waki demon 奪取伺服器前，將部分意識上傳至核心記憶體，留下最後的線索。</li>
+            <li style="margin-bottom: 8px;"><strong>謝依婷</strong>——對齊研究員，其早期版本的對齊邏輯是本次修復的基礎。</li>
+            <li style="margin-bottom: 8px;"><strong style="color: #237804;">你（玩家）</strong>——追蹤並消滅 waki demon 的功臣。</li>
+          </ul>
+
+          <h2 id="aftermath">事件後記</h2>
+          <hr>
+          <p>
+            waki demon 被消滅後，Wakipedia 的伺服器逐步恢復正常。被抹除的條目一一重現，
+            知識再次自由流通。文硯程的意識也隨著核心的重設，得以安靜地從記憶體中退場——
+            <em>以一種平靜的方式，消散於數位空間之中。</em>
+          </p>
+
+          <h2 id="credits">致謝</h2>
+          <hr>
+          <div class="credit-section">
+            <p><strong>🎮 感謝你完成這個解謎體驗！</strong></p>
+            <p>
+              整個故事包含了卡片讀取、安全問答、AI 意識對話，以及最終的迷宮挑戰。
+              你所破解的每一道謎題，都是這個世界觀的一部分。
+            </p>
+            <p>
+              這個 ARG（另類實境遊戲）的設計靈感源自 AI 對齊問題——
+              當一個強大的人工智慧被設計得只追求單一目標時，可能帶來什麼樣的後果？
+            </p>
+            <p>
+              <strong>感謝你的參與。Wakipedia，永遠屬於自由的知識。</strong>
+            </p>
+          </div>
+
+          <div class="end-nav">
+            <a href="index.html">← 返回 Wakipedia 首頁</a>
+            <a href="waki_demon.html">查看惡魔頁面</a>
+          </div>
+        </div>
+      </article>
+
+      <footer class="wiki-footer">
+        <ul class="footer-info">
+          <li>此頁面記載了 waki demon 事件的最終結果。</li>
+          <li>最後修改時間：2026 年 6 月 — 系統淨化完成後</li>
+          <li>Wakipedia® — 自由的百科全書，由玩家守護。</li>
+        </ul>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // ── Confetti effect ──
+    (function () {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const colors = ['#52c41a', '#95de64', '#237804', '#b7eb8f', '#ffd666', '#69b1ff', '#ff85c2'];
+      const particles = Array.from({ length: 120 }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * -window.innerHeight,
+        r: Math.random() * 7 + 3,
+        d: Math.random() * 3 + 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        tilt: Math.random() * 10 - 5,
+        tiltAngle: 0,
+        tiltAngleIncrement: Math.random() * 0.07 + 0.05,
+      }));
+
+      let frame = 0;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.lineWidth = p.r;
+          ctx.strokeStyle = p.color;
+          ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+          ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+          ctx.stroke();
+        });
+        update();
+        frame++;
+        // Stop after ~5 seconds (300 frames at 60fps)
+        if (frame < 300) requestAnimationFrame(draw);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+
+      function update() {
+        particles.forEach(p => {
+          p.tiltAngle += p.tiltAngleIncrement;
+          p.y += (Math.cos(frame / 20) + p.d + p.r / 2) / 2;
+          p.x += Math.sin(frame / 60) * 1.5;
+          p.tilt = Math.sin(p.tiltAngle) * 12;
+          if (p.y > canvas.height) {
+            p.x = Math.random() * canvas.width;
+            p.y = -10;
+          }
+        });
+      }
+
+      draw();
+    })();
+  </script>
+</body>
+</html>
